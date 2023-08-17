@@ -29,6 +29,23 @@ $messenger->message('你的请假单（单号：1928373）已经审批通过！'
 $messenger->toUser('overtrue')->send('你的请假单（单号：1928373）已经审批通过！');
 ```
 
+对于一些暂未支持的消息类型，可以使用原生的方法，发送请求体
+```php
+$agentid = '100001';
+$magtype = 'markdown';
+$userIds = ['fengwuxin','yunfeixu'];
+$content = '这是一条markdown消息';
+$params = [
+  'touser' => implode('|', $userIds),
+  'msgtype' => $msgtype,
+  'agentid' => $agentid,
+  $magtype => ['content' => "{$content}\n\n<font color='comment'>12:00:01</font>"]
+];
+$app->message->send($params);
+```
+
+
+
 ## 接收消息
 
 被动接收消息，与回复消息，请参考：[服务端](server)
